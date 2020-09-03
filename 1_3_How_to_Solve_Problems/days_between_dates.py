@@ -45,7 +45,7 @@ def is_valid_input(year_from, month_from, day_from, year_to, month_to, day_to):
     return False 
 
 
-def age(year_from, month_from, day_from, year_to, month_to, day_to):
+def daysBetweenDates(year_from, month_from, day_from, year_to, month_to, day_to):
     """
     Returns the age from a given date to another date. It is assumed that
     the later date is always bigger than the previous.
@@ -73,6 +73,7 @@ def age(year_from, month_from, day_from, year_to, month_to, day_to):
             month_from += 1
             while month_from < month_to:
                 days += days_in_month(month_from, is_leapyear(year_from))
+                month_from += 1
             days += day_to
             return days
     else:
@@ -93,5 +94,19 @@ def age(year_from, month_from, day_from, year_to, month_to, day_to):
         return days
 
 
+def test():
+    test_cases = [((2012, 1, 1, 2012, 2, 28), 58),
+                  ((2012, 1, 1, 2012, 3, 1), 60),
+                  ((2011, 6, 30, 2012, 6, 30), 366),
+                  ((2011, 1, 1, 2012, 8, 8), 585),
+                  ((1900, 1, 1, 1999, 12, 31), 36523)]
+
+    for (args, answer) in test_cases:
+        result = daysBetweenDates(*args)
+        if result != answer:
+            print("Test with data:", args, "failed")
+        else:
+            print("Test case passed!")
+
 if __name__ == '__main__':
-    print(age(1992, 10, 21, 2020, 9, 2))
+    test()
