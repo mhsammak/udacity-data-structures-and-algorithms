@@ -34,6 +34,18 @@ class Stack:
         self.__head = node.next
         self.__size -= 1
         return node.value
+    
+    def top(self):
+        if self.__size == 0:
+            return None
+        return self.__head.value
+    
+    @staticmethod
+    def reverse(stack):
+        reverse_stack = Stack()
+        while stack.top() is not None:
+            reverse_stack.push(stack.pop())
+        return reverse_stack
 
 
 if __name__ == '__main__':
