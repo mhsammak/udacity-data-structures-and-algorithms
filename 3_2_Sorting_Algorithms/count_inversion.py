@@ -1,6 +1,7 @@
-def __merge(array: list, left: int, mid: int, right: int) -> None:
+def __merge(array: list, left: int, mid: int, right: int) -> int:
     """
-    Merges two sorted region of an array into an combined sorted region.
+    Merges two sorted region of an array into an combined sorted region,
+    and returns the number of inversions.
 
     Args:
         array (list): array of elements
@@ -8,10 +9,11 @@ def __merge(array: list, left: int, mid: int, right: int) -> None:
         mid (int): last index of first region
         right (int): last index of right region
     Returns:
-        None
+        int: number of inversions
     """
     size = right - left + 1
     temp = [None for _ in range(size)]
+    inv = 0
 
     first = left
     second = mid + 1
@@ -25,13 +27,14 @@ def __merge(array: list, left: int, mid: int, right: int) -> None:
         elif array[first] > array[second]:
             temp[i] = array[second]
             second += 1
+            inv += 1
         else:
             temp[i] = array[first]
             first += 1
 
     for i in range(size):
         array[left+i] = temp[i]
-
+    return inv
 
 def __merge_sort(array: list, left: int, right: int):
     """
@@ -39,24 +42,25 @@ def __merge_sort(array: list, left: int, right: int):
     """
     size = right - left + 1
     if size <= 1:
-        return
+        return 0
     else:
         mid = (right + left) // 2
-        __merge_sort(array, left, mid)
-        __merge_sort(array, mid+1, right)
-        __merge(array, left, mid, right)
+        left_inv = __merge_sort(array, left, mid)
+        right_inv = __merge_sort(array, mid+1, right)
+        inv = __merge(array, left, mid, right)
+        return left_inv + right_inv + inv
 
 
-def sort(array: list) -> None:
+def inversions(array: list) -> int:
     """
-    Sorts the array in ascending order.
+    Counts the number of inversions in the array.
 
     Args:
         array (list): array of elements
     Returns:
-        None
+        int: total number of inversions
     """
-    __merge_sort(array, 0, len(array)-1)
+    return __merge_sort(array, 0, len(array)-1)
 
 
 if __name__ == '__main__':
@@ -64,10 +68,10 @@ if __name__ == '__main__':
     array2 = []
     array3 = [112, 13]
 
-    sort(array1)
-    sort(array2)
-    sort(array3)
+    inv1 = inversions(array1)
+    inv2 = inversions(array2)
+    inv3 = inversions(array3)
 
-    print(' '.join([str(i) for i in array1]))
-    print(' '.join([str(i) for i in array2]))
-    print(' '.join([str(i) for i in array3]))
+    print(str(inv1))
+    print(str(inv2))
+    print(str(inv3))
