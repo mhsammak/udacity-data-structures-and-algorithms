@@ -13,19 +13,19 @@ def dijkstra(graph: Graph, start_node: GraphNode, end_node: GraphNode) -> int:
     Returns:
         int: shortest path from start_node to end_node
     """
-    distances = {node: math.inf for node in graph.nodes}
-    distances[start_node] = 0
+    distances_not_visited = {node: math.inf for node in graph.nodes}
+    distances_not_visited[start_node] = 0
     shortest_paths = {}
 
-    while len(distances) > 0:
-        nearest_node, nearest_distance = sorted(distances.items(), key=lambda x: x[1])[0]
-        shortest_paths[nearest_node] = distances.pop(nearest_node)
+    while len(distances_not_visited) > 0:
+        nearest_node, nearest_distance = sorted(distances_not_visited.items(), key=lambda x: x[1])[0]
+        shortest_paths[nearest_node] = distances_not_visited.pop(nearest_node)
         
         for edge in nearest_node.edges:
-            if edge.node in distances:
+            if edge.node in distances_not_visited:
                 new_distance = nearest_distance + edge.distance
-                if distances[edge.node] > new_distance:
-                    distances[edge.node] = new_distance
+                if distances_not_visited[edge.node] > new_distance:
+                    distances_not_visited[edge.node] = new_distance
     return shortest_paths[end_node]
 
 

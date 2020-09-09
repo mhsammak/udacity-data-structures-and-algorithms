@@ -1,7 +1,7 @@
 from graph import GraphNode, Graph
 
 
-def dfs_search(root: GraphNode, value: any) -> any:
+def dfs_search(root: GraphNode, value: any) -> GraphNode:
     """
     Traverses graph in depth first order to search for the value.
 

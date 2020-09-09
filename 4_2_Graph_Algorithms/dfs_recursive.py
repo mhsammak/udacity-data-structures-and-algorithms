@@ -1,15 +1,16 @@
 from graph import GraphNode, Graph
 
 
-def _dfs_recursion(root: GraphNode, visited: dict) -> any:
+def _dfs_recursion(root: GraphNode, visited: dict) -> None:
     if root is None:
         return
+    
     visited[root] = True
     print(root.value)
+    
     for child in root.children:
         if child not in visited:
             _dfs_recursion(child, visited)
-    
     
 
 def dfs_recursion(root: GraphNode) -> None:
