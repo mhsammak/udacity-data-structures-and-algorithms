@@ -35,7 +35,8 @@ def min_connections(graph: list) -> int:
             visited[island] = True
             cost += minimum_cost
             for nearby_island, nearby_cost in graph[island]:
-                heapq.heappush(heap, (nearby_cost, nearby_island))
+                if not visited[nearby_island]:
+                    heapq.heappush(heap, (nearby_cost, nearby_island))
     return cost
 
 
