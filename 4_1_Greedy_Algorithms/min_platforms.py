@@ -1,8 +1,13 @@
 def min_platforms(arrival: int, departure:int) -> int:
     """
-    :param: arrival - list of arrival time
-    :param: departure - list of departure time
-    so that no train has to wait for other(s) to leave
+    Returns the minimum number of platforms required so that
+    trains do not have to wait.
+
+    Args:
+        arrival (list): list of arrival times
+        departure (list): list of departure times
+    Returns:
+        int: minimum number of platforms required
     """
     arrival = sorted(arrival)
     departure = sorted(departure)
